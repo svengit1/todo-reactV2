@@ -1,8 +1,16 @@
 import React from 'react'
+import "../app.css"
 
 export default function Navbar(props){
     function clickHandler(e){
         props.changeVisibilityHandler(e.target.id)
+    }
+
+    function delete_completed(){
+        props.tasks_setter(prevTasks =>
+            prevTasks.filter(task => {
+                return task.completed !== true
+            }))
     }
     return(
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -18,6 +26,9 @@ export default function Navbar(props){
                         
                       <li className="nav-item">
                         {props.curr_active === "completed"? <a className="nav-link active" href="#" id="completed" onClick={clickHandler}>Completed</a>: <a className="nav-link" href="#" id="completed" onClick={clickHandler}>Completed</a>}
+                      </li>
+                      <li className="nav-item">
+                        <p className="small-nav-text" onClick={delete_completed}>Clear completed!</p>
                       </li>
                     </ul>
                   </div>

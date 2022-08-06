@@ -3,3 +3,11 @@
     margin-right: auto;
     width: 200px;
 }
+
+.small-nav-text{
+    font-size: 12px;
+    margin-left: 20px;
+    padding-top: 12px;
+    overflow: none;
+    white-space: nowrap;
+}

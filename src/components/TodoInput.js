@@ -9,7 +9,6 @@ export default function TodoInput(){
     const [task, setTask] = React.useState(initalTaskState)
     const [tasks, setTasks] = React.useState([])
     const [visable, setVisable] = React.useState("all")
-    console.log(task)
     function handleChange(e){
         setTask(prevTask => {
             return {
@@ -68,7 +67,7 @@ export default function TodoInput(){
           todos={tasks} 
           visibility = {visable}
           changeParentState={setTasks}/>
-          {tasks.length ? <Navbar changeVisibilityHandler = {changeVisibility} curr_active={visable}/> : <div></div>}
+          {tasks.length ? <Navbar changeVisibilityHandler = {changeVisibility} curr_active={visable} tasks_setter={setTasks}/> : <div></div>}
         </div>  
     )
 }
