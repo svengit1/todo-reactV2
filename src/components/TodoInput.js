@@ -6,11 +6,11 @@ import Navbar from './Navbar';
 
 export default function TodoInput(){
     const initalTaskState = {"value": "", "completed": false, "uid": generateUID()}
-    const [task, setTask] = React.useState(initalTaskState)
+    const [currInputTask, setCurrInputTask] = React.useState(initalTaskState)
     const [tasks, setTasks] = React.useState([])
     const [visable, setVisable] = React.useState("all")
     function handleChange(e){
-        setTask(prevTask => {
+        setCurrInputTask(prevTask => {
             return {
                 ...prevTask,
                 "value": e.target.value
@@ -21,8 +21,8 @@ export default function TodoInput(){
 
     function handleSubmit(e){
         if (e.which === 13) {
-            setTasks(prevTasks => [...prevTasks, task])
-            setTask(initalTaskState)
+            setTasks(prevTasks => [...prevTasks, currInputTask])
+            setCurrInputTask(initalTaskState)
         }
     }
 
@@ -60,7 +60,7 @@ export default function TodoInput(){
             aria-describedby="button-addon1"
             onChange={handleChange}
             onKeyDown={handleSubmit}
-            value={task.value}>
+            value={currInputTask.value}>
             </input>
           </div>
           <TodoList 
