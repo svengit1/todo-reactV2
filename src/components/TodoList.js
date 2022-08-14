@@ -6,10 +6,10 @@ export default function TodoList(props){
     if (props){
         for(var i in props.todos){
             let item = <TodoItem key={props.todos[i].uid} todo={props.todos[i]} allTodos={props.todos} setParentState={props.changeParentState}/>
-            if (props.visibility === "active"){
+            if (props.visibility === props.states["ACTIVE"]){
                 if (props.todos[i].completed == false)
                     todolist.push(item);
-            } else if (props.visibility === "completed"){
+            } else if (props.visibility === props.states["COMPLETED"]){
                 if (props.todos[i].completed == true)
                     todolist.push(item);
             } else{

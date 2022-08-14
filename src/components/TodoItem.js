@@ -1,3 +1,4 @@
+import e from 'express'
 import React from 'react'
 
 export default function TodoItem(props){
@@ -7,15 +8,26 @@ export default function TodoItem(props){
         setTodoItemValue(e.target.value)
     }
 
-
-    function handleTasksChange(e){
+    function changeTaskValue(event, valueChange, completedChange){
         let newTasks = props.allTodos.map(obj => {
-            if (obj.uid === e.target.id){
-                return {"value": e.target.value, "completed": obj.completed, "uid": obj.uid}
+            if (obj.uid === event.target.id){
+                return {"value": valueChange? event.target.value : obj.value, "completed": completedChange? event.target.checked : obj.completed, "uid": obj.uid}
             }
             return obj
         })
         props.setParentState(newTasks)
+    }
+
+    function handleTasksChange(e){
+        // let newTasks = props.allTodos.map(obj => {
+        //     if (obj.uid === e.target.id){
+        //         return {"value": e.target.value, "completed": obj.completed, "uid": obj.uid}
+        //     }
+        //     return obj
+        // })
+        // props.setParentState(newTasks)
+        changeTaskValue(e, true, false)
+
     }
 
 
@@ -27,29 +39,30 @@ export default function TodoItem(props){
     }
 
     function checkboxChange(e){
-        let newTasks = props.allTodos.map(obj => {
-            if (obj.uid === e.target.id){
-                return {"value": obj.value, "completed": e.target.checked, "uid": obj.uid}
-            }
-            return obj
-        })
-        props.setParentState(newTasks)
+        // let newTasks = props.allTodos.map(obj => {
+        //     if (obj.uid === e.target.id){
+        //         return {"value": obj.value, "completed": e.target.checked, "uid": obj.uid}
+        //     }
+        //     return obj
+        // })
+        // props.setParentState(newTasks)
+        changeTaskValue(e, false, true)
     }
 
     return(
         <div className="input-group mb-3">
-        <div className="input-group-text">
-        <input className="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input" onChange={checkboxChange} id={props.todo.uid} checked={props.todo.completed}></input>
+            <div className="input-group-text">
+            <input className="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input" onChange={checkboxChange} id={props.todo.uid} checked={props.todo.completed}></input>
         </div>
         <input 
-        type="text" 
-        className="form-control" 
-        aria-label="Text input with checkbox"
-        value={todoItemValue}
-        id={props.todo.uid}
-        onChange={changeTodoItemValue}
-        onKeyDown={handleTasksChange}
-        onBlur={handleTasksChange}></input>
+            type="text" 
+            className="form-control" 
+            aria-label="Text input with checkbox"
+            value={todoItemValue}
+            id={props.todo.uid}
+            onChange={changeTodoItemValue}
+            onKeyDown={handleTasksChange}
+            onBlur={handleTasksChange}></input>
         <button className="btn btn-outline-secondary" id={props.todo.uid} onClick={handleDelete}>Delete</button>
         </div>
     )

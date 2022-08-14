@@ -1,34 +1,34 @@
 import React from 'react'
 import "../app.css"
 
-export default function Navbar(props){
+export default function Navbar({changeVisibilityHandler, currActive, tasksSetter, states}){
     function clickHandler(e){
-        props.changeVisibilityHandler(e.target.id)
+        changeVisibilityHandler(e.target.id)
     }
 
-    function delete_completed(){
-        props.tasks_setter(prevTasks =>
+    function deleteCompleted(){
+        tasksSetter(prevTasks =>
             prevTasks.filter(task => {
                 return task.completed !== true
             }))
+    }
+
+    function navItem(id){
+        return(
+            <li className="nav-item">{currActive === id? <a className="nav-link active" href="#" id={id} onClick={clickHandler}>{id}</a>: <a className="nav-link" href="#" id={id} onClick={clickHandler}>{id}</a>}</li>
+        )
+
     }
     return(
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="container col-5">
                   <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
+                      {navItem(states["ALL"])}
+                      {navItem(states["ACTIVE"])}
+                      {navItem(states["COMPLETED"])}
                       <li className="nav-item">
-                        {props.curr_active === "all"? <a className="nav-link active" href="#" id="all" onClick={clickHandler}>All</a>: <a className="nav-link" href="#" id="all" onClick={clickHandler}>All</a>}
-                      </li>
-                      <li className="nav-item">
-                        {props.curr_active === "active"? <a className="nav-link active" href="#" id="active" onClick={clickHandler}>Active</a>: <a className="nav-link" href="#" id="active" onClick={clickHandler}>Active</a>}
-                      </li>
-                        
-                      <li className="nav-item">
-                        {props.curr_active === "completed"? <a className="nav-link active" href="#" id="completed" onClick={clickHandler}>Completed</a>: <a className="nav-link" href="#" id="completed" onClick={clickHandler}>Completed</a>}
-                      </li>
-                      <li className="nav-item">
-                        <p className="small-nav-text" onClick={delete_completed}>Clear completed!</p>
+                        <p className="small-nav-text" onClick={deleteCompleted}>Clear completed!</p>
                       </li>
                     </ul>
                   </div>
